@@ -15,13 +15,17 @@ function App() {
 
     const isPlanet = watch('isPlanet');
     const gravity = watch('gravity');
+    const [maxGravity, setMaxGravity] = useState(1);
 
     useEffect(() => {
         fetch('https://api.le-systeme-solaire.net/rest/bodies')
             .then(response => response.json())
             .then(data => {
-                setBodies(data.bodies); // mettez à jour avec la vraie structure de votre API
-                setFilteredBodies(data.bodies); // initialisation avec tous les corps
+                setBodies(data.bodies);
+                setFilteredBodies(data.bodies);
+                // Calcul de la valeur maximale de gravité
+                const maxGravityValue = Math.max(...data.bodies.map(body => body.gravity));
+                setMaxGravity(maxGravityValue);
             });
     }, []);
 
@@ -48,11 +52,9 @@ function App() {
             <h2>Information sur {info.englishName} ({info.name})</h2>
             <p><strong>Type de corps :</strong> {info.bodyType}</p>
             <p><strong>Est une planète :</strong> {info.isPlanet ? 'Oui' : 'Non'}</p>
-            <p><strong>Masse :</strong> {info.mass.massValue} x 10^{info.mass.massExponent} kg</p>
             <p><strong>Volume :</strong> {info.vol.volValue} x 10^{info.vol.volExponent} km³</p>
             <p><strong>Densité :</strong> {info.density} g/cm³</p>
             <p><strong>Gravité :</strong> {info.gravity} m/s²</p>
-            <p><strong>Rayon moyen :</strong> {info.meanRadius} km</p>
             <p><strong>Température moyenne :</strong> {info.avgTemp} K</p>
             <p><strong>Découvert par :</strong> {info.discoveredBy || 'Inconnu'}</p>
             <p><strong>Date de découverte :</strong> {info.discoveryDate || 'Inconnue'}</p>
@@ -64,24 +66,26 @@ function App() {
     return (
         <div className="App">
             <h1>RHOBS Challenge</h1>
-            <form>
+            <div className="input-container">
                 <div className="range-and-checkbox">
                     <label className="checkbox-label">
-                        Is Planet
                         <input type="checkbox" {...register('isPlanet')} />
+                        Is Planet
                     </label>
-                    <label htmlFor="gravity">Gravity</label>
-                    <input type="range" id="gravity" {...register('gravity')} />
+                    <div className="gravity">
+                        <input type="range" id="gravity" {...register('gravity')} max={maxGravity} />
+                        <span className="gravity-label">Gravity</span>
+                    </div>
                 </div>
-                <label>
-                    Bodies:
+                <div className="bodies-selection">
+                    <span>Bodies:</span>
                     <select {...register('body')} onChange={onSelectBody}>
                         {filteredBodies.map((body) => (
                             <option key={body.id} value={body.id}>{body.name}</option>
                         ))}
                     </select>
-                </label>
-            </form>
+                </div>
+            </div>
             {selectedBodyInfo && <BodyInfo info={selectedBodyInfo} />}
         </div>
     );
