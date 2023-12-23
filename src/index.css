@@ -1,13 +1,117 @@
-body {
+/* Réinitialiser certains styles par défaut */
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body, input, button, select, label {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Application globale de styles */
+.App {
+  text-align: center;
+  padding: 40px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.range-and-checkbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.checkbox-label, .range-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="checkbox"] {
+  accent-color: black; /* ou une autre couleur de votre choix */
+}
+
+input[type="range"] {
+  -webkit-appearance: none;  /* Override pour les navigateurs WebKit */
+  appearance: none;
+  width: calc(100% - 80px); /* ajustement de la largeur */
+  margin: 0 10px; /* ajouter un peu d'espace autour du curseur de gravité */
+  height: 2px; /* Hauteur de la piste */
+  background: #ddd; /* Couleur de fond de la piste */
+  outline: none; /* Supprime la bordure de focus autour de l'élément */
+  opacity: 0.7; /* Légère transparence */
+  -webkit-transition: .2s; /* Transition pour les effets de survol */
+  transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px; /* Taille réduite du curseur */
+  height: 15px; /* Taille réduite du curseur */
+  background: #000;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 15px; /* Taille réduite du curseur pour Firefox */
+  height: 15px; /* Taille réduite du curseur pour Firefox */
+  background: #000;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+input[type="range"]:hover {
+  opacity: 1; /* Pleine opacité lors du survol */
+}
+
+select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  width: calc(100% - 20px); /* ajustement de la largeur */
+}
+
+/* Style pour la boîte d'information du corps céleste */
+#info {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+  margin-top: 20px; /* ajoutez un peu d'espace au-dessus de la boîte d'info */
+}
+
+#info h2 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+#info p {
+  margin-bottom: 10px;
 }
